@@ -1,28 +1,12 @@
 <img width="657" height="528" alt="image" src="https://github.com/user-attachments/assets/071d85ae-29b6-43b5-b43b-f5c2c2943469" />
 <img width="440" height="289" alt="image" src="https://github.com/user-attachments/assets/0693e1e6-80c4-46d7-853f-8229920fc9ec" />
 
-Dataset       : TON_IoT Network
-Preprocessing : Duplicate Removal
-Model         : Random Forest
-Output        : Accuracy
+<img width="309" height="501" alt="image" src="https://github.com/user-attachments/assets/92072802-494e-479c-b48f-f2f4c51b8710" />
 
-TON_IoT Network Dataset
-        ↓
-211,043 records
-        ↓
-Duplicate Detection
-        ↓
-20,569 duplicates found
-        ↓
-Duplicate Removal
-        ↓
-190,474 records
-        ↓
-80% Train / 20% Test
-        ↓
-Random Forest
-        ↓
-99.83% Accuracy ✅
+I selected the TON_IoT network dataset. The original dataset contained 211,043 records. During data cleaning, I detected 20,569 exact duplicate records. I applied duplicate removal as my preprocessing technique, resulting in 190,474 unique records. Then I used a Random Forest classifier on the numerical network features. Using an 80–20 train-test split, the model achieved 99.83% accuracy.
+
+Why Duplicate Removal?
+“Because my dataset actually contained 20,569 duplicate records. Repeated samples can give unnecessary extra importance to the same observations and may bias model training, so I removed them.”
 
 
 
