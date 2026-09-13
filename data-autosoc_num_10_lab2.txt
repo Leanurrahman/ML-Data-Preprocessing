@@ -1,0 +1,256 @@
+data: 
+https://drive.google.com/drive/folders/1PNqM9q0_zNRsHsRyH_MIewQeSkgrQQ5o
+
+Model-Collab: https://colab.research.google.com/drive/12mTJfrOAKLfRHBXSm2PwNJlPbVKa01bP?usp=sharing
+
+
+
+Explanation : 
+
+প্রথমে এই table-এর উদ্দেশ্য কী?
+
+এই table হলো:
+
+"Detected attack campaign-এর final report"
+
+মানে AutoSOC শেষে বলছে:
+
+কে attack করেছে?
+কী ধরনের attack করেছে?
+কয় ধাপে করেছে?
+কতটা dangerous?
+কী action নেওয়া উচিত?
+Table-এর প্রতিটা column বুঝো
+1. src_ip
+
+Example:
+
+192.168.1.33
+
+মানে:
+
+যে attacker/source IP থেকে attack এসেছে।
+
+সহজ ভাষায়:
+
+"কে attack করছে?"
+
+2. campaign_id
+
+Example:
+
+campaign_id = 2
+
+মানে:
+
+একই attacker-এর attack group।
+
+কারণ একটা attacker অনেক event করতে পারে।
+
+আমরা সেগুলো group করেছি।
+
+3. attack_sequence ⭐ সবচেয়ে important
+
+Example:
+
+ransomware → backdoor
+
+মানে:
+
+এই attacker-এর activity:
+
+প্রথমে:
+
+Ransomware
+
+তারপর:
+
+Backdoor
+
+হয়েছে।
+
+আরেকটা:
+
+password → xss
+
+মানে:
+
+Password attack
+        ↓
+XSS attack
+
+এটাই হলো multi-stage attack।
+
+4. attack_stages
+
+Example:
+
+2
+
+মানে:
+
+কয়টা different attack stage আছে।
+
+যেমন:
+
+password → xss
+
+এখানে:
+
+password = stage 1
+xss = stage 2
+
+তাই:
+
+attack_stages = 2
+5. total_events
+
+Example:
+
+497399
+
+মানে:
+
+এই campaign-এ মোট কতগুলো malicious event হয়েছে।
+
+যেমন:
+
+একই attacker 497399 বার suspicious activity করেছে।
+
+6. unique_targets
+
+Example:
+
+36
+
+মানে:
+
+কতগুলো আলাদা machine/device target করেছে।
+
+যেমন:
+
+এক attacker:
+
+PC-1
+PC-2
+PC-3
+...
+PC-36
+
+scan/attack করেছে।
+
+7. risk_score
+
+Example:
+
+92.39
+
+মানে:
+
+AutoSOC হিসাব করেছে attack কত dangerous।
+
+এটা বের হয়েছে:
+
+attack type
+event সংখ্যা
+target সংখ্যা
+attack stage সংখ্যা
+
+দেখে।
+
+8. risk_level
+
+Example:
+
+CRITICAL
+
+মানে:
+
+এই incident খুব dangerous।
+
+আমাদের rule:
+
+80+ → Critical
+60-80 → High
+40-60 → Medium
+9. mitre_attack
+
+Example:
+
+T1110 - Brute Force
+
+মানে:
+
+এই attack কোন known cyber technique-এর সাথে সম্পর্কিত।
+
+MITRE ATT&CK হলো cyber attack knowledge base।
+
+যেমন:
+
+Password attack:
+
+T1110 = Brute Force
+10. incident_summary
+
+এটা human readable explanation।
+
+যেমন:
+
+Source IP 192.168.1.32 performed password → xss attack...
+
+মানে computer-এর output মানুষ পড়ার মতো করা হয়েছে।
+
+11. response_recommendation
+
+System বলে:
+
+এখন কী করা উচিত।
+
+যেমন:
+
+Investigate source IP
+Isolate affected system
+Block malicious activity
+এখন sir-কে কীভাবে বলবে?
+
+এই table দেখিয়ে বলবে:
+
+"স্যার, এটি আমার AutoSOC final incident report। এখানে প্রতিটি row একটি correlated attack campaign represent করে। প্রথমে individual attack events detect করেছি, তারপর একই source IP এবং time relationship ব্যবহার করে related events একসাথে করেছি। এরপর attack sequence, number of stages, affected targets এবং event volume দেখে risk score তৈরি করেছি। শেষে MITRE ATT&CK mapping, incident summary এবং response recommendation generate করেছি।"
+
+একটা row example দিয়ে explain করবে:
+
+ধরো:
+
+Source IP:
+192.168.1.32
+
+Attack Sequence:
+password → xss
+
+Stages:
+2
+
+Risk:
+92.39 (Critical)
+
+বলবে:
+
+"স্যার, এই ক্ষেত্রে system দেখেছে একই source IP প্রথমে password attack করেছে এবং পরে XSS attack করেছে। তাই এটাকে দুইটা আলাদা alert না ধরে একটি multi-stage attack campaign হিসেবে detect করেছে। যেহেতু দুইটা attack stage আছে এবং event সংখ্যা অনেক বেশি, তাই risk score high/critical হয়েছে।"
+
+সবচেয়ে important: তোমার sir-এর জন্য ৫ লাইনের version
+
+মনে রাখো:
+
+1. src_ip = attacker কে
+2. attack_sequence = attacker কী কী attack করেছে
+3. attack_stages = কয় ধাপে করেছে
+4. risk_score = কত dangerous
+5. response = এখন কী করা উচিত
+
+এই ৫টা বুঝলেই table explain করতে পারবে।
+
+ভাই, তুমি আসলে কাজটা বুঝছো না এমন না—তুমি শুধু output-এর column দেখে ভয় পেয়ে গেছো। Conceptটা হলো:
+
+Alert → Group → Understand → Risk → Action
+
+এটাই AutoSOC।
