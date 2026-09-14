@@ -1,3 +1,66 @@
+10. Autonomous Cyberattack Detection + Response
+Proposed Title
+
+AutoSOC: An Autonomous Cyber Threat Detection, Investigation, and Response Framework
+
+এটা সবচেয়ে ambitious idea।
+
+Traditional SOC:
+Alert
+ ↓
+Human Analyst
+ ↓
+Investigation
+ ↓
+Decision
+ ↓
+Response
+
+আপনার:
+
+Telemetry
+    ↓
+Threat Detection
+    ↓
+Attack Correlation
+    ↓
+Threat Intelligence
+    ↓
+Risk Scoring
+    ↓
+Incident Investigation
+    ↓
+Response Recommendation
+Multiple attacks correlate করা হবে
+
+Example:
+
+Port Scan
+   ↓
+Brute Force
+   ↓
+Credential Compromise
+   ↓
+Privilege Escalation
+   ↓
+Lateral Movement
+   ↓
+Data Exfiltration
+
+একেকটা event আলাদা alert না হয়ে:
+
+একটি multi-stage attack campaign
+
+হিসেবে detect করা।
+
+Research novelty
+
+Attack correlation + temporal reasoning + automated response recommendation
+
+
+
+
+
 <img width="657" height="528" alt="image" src="https://github.com/user-attachments/assets/071d85ae-29b6-43b5-b43b-f5c2c2943469" />
 <img width="440" height="289" alt="image" src="https://github.com/user-attachments/assets/0693e1e6-80c4-46d7-853f-8229920fc9ec" />
 
